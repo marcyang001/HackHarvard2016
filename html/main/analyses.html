@@ -16,7 +16,7 @@
     <script type="text/javascript" src="./js/temp_charts.js"></script>
     <script type="text/javascript" src="./js/avgtemp_charts.js"></script>
     <script type="text/javascript" src="./js/wind_charts.js"></script>
-    <script type="text/javascript" src="./js/dataInputer.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript">
         google.charts.setOnLoadCallback(function () {
             drawDailyRainChart(dailyRainData);
@@ -62,26 +62,36 @@
     <div class="col-md-9">
         <p class="farm-id" id="farmid">[Farm Name]</p>
         <hr>
+
         <div ng-show="isAnalyses">
             <div class="anayChart" id="temp"></div>
-            <p>As the graph shows, in the following few months we may have a highest temperature of ?? and lowest of
-                ???. Based on the machine learning algorithm, this is good/bad for your products in this farm. Also mind
-                the high temperature, we suggest that you, the manager of this farm, <b>make sure that all plants are
-                    hydrated and may irrigate extra once per week</b>.</p>
+            <p>As the graph shows, in the following few months we may have a highest temperature of {{highestTemp}} and
+                lowest of {{lowestTemp}} Fahrenheit. Based on the machine learning algorithm, this is good/bad for your
+                products in this farm. Also mind the high temperature on {{maxTempDate}}, we suggest that you, the
+                manager of this farm,
+                <b>make sure that all plants are hydrated and may irrigate extra once per week during warm period</b>.
+            </p>
             <div class="anayChart" id="avgtemp"></div>
-            <p></p>
+            <p>This is an alternative temperature line chart in order to show you the temperature and weather in next 3
+                months from a different angle. We get the weather data from last 30 years and retrieve the average high
+                and low temperatures for each day in the next 90 days. <b>We suggest you also refer to this graph for a
+                    better understanding of the weather in the future</b>, since it's representative proved by
+                scientists.</p>
 
             <div class="anayChart" id="daily-rain"></div>
             <p>Recently, we have average rainfall, and it seems that everything goes well. It will be raining heavily
-                someday around [DATE]. And it seems that the precipitation will drop sharply after [DATE].</p>
+                someday around {{maxRainDate}}. And it seems that {{percentageOfNoRain * 100 | number:2}}% of days in
+                the next
+                three months will have no rainfall.</p>
             <div class="anayChart" id="monthly-rain"></div>
             <p>The monthly gives you a more overall perception about precipitation. Everything goes right!</p>
             <div class="anayChart" id="wind"></div>
-            <p>Lucky you! You get mild wind in the following ten days and no worries about your products.</p>
+            <p>Lucky you! You get mild wind in the following ten days, with a average of {{avgWindSpd | number:2}}kts,
+                so no worries about your products.</p>
             <hr>
             <h4>Advanced advice</h4>
             <p>Based on our huge database and machine learning algorithms, we believe that the growing season for this
-                farm will last for 118 ~ 127 more days, that is, your expected harvest period is from [DATE] to
+                farm will last for [INT] ~ [INT] more days, that is, your expected harvest period is from [DATE] to
                 [DATE].</p>
             <p>Also, the degree sweetness of your apples this year is expected to be [xxx], a little bit higher than
                 previous ones. The quantity of apples and quality per apple are expected as [x] and [y]
@@ -96,27 +106,55 @@
 
                 <!--main content start-->
                 <section id="main-content">
-                    <section class="wrapper" ng-controller="ctrl2">
+                    <section class="wrapper">
                         <!--BASIC PROGREE BAR -->
                         <div id="progress-block" class="showback">
-                            <p>Temperature:&nbsp;  &nbsp;  &nbsp;<button class="btn btn-success" ng-click="tempminus()"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-success" ng-click="tempadd()"><span class="glyphicon glyphicon-plus"></span></button> </p>
-                            
-                            <uib-progressbar animate="false" value="temperature" type="success"><b>{{temperature}}&#8451;</b></uib-progressbar>
-                            
-                            <p >Humidity:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-minus" ng-click="hum_minus()"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info" ng-click="hum_plus()"><span class="glyphicon glyphicon-plus"></span></button></p> 
-                            
-                            <uib-progressbar animate="false" value="humidity" type="info"><b>{{humidity}}%</b></uib-progressbar>
-                            
+                            <p>Temperature:&nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-success" ng-click="tempminus()"><span
+                                        class="glyphicon glyphicon-minus"></span></button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-success" ng-click="tempadd()"><span
+                                        class="glyphicon glyphicon-plus"></span></button>
+                            </p>
 
-                            <p>Oxygen Concentration:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-minus" ng-click="oxconcent_minus()"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning" ng-click="oxconcent_plus()"><span class="glyphicon glyphicon-plus"></span></button></p>
-                            
-                            <uib-progressbar animate="false" value="oxconcent" type="warning"><b>{{oxconcent}}%</b></uib-progressbar>
-                            
-                            
-                            <p >Illumination:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger" ng-click="illu_minus()"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-plus" ng-click="illu_plus()"></span></button></p>
-                            
-                            <uib-progressbar animate="false" value="illumination" type="danger"><b>{{illumination*20}} lx</b></uib-progressbar>
-                            
+                            <uib-progressbar animate="false" value="temperature" type="success"><b>{{temperature}}&#8451;</b>
+                            </uib-progressbar>
+
+                            <p>Humidity: &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-info"><span class="glyphicon glyphicon-minus"
+                                                                   ng-click="hum_minus()"></span></button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-info" ng-click="hum_plus()"><span
+                                        class="glyphicon glyphicon-plus"></span></button>
+                            </p>
+
+                            <uib-progressbar animate="false" value="humidity" type="info"><b>{{humidity}}%</b>
+                            </uib-progressbar>
+
+
+                            <p>Oxygen Concentration: &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-warning"><span class="glyphicon glyphicon-minus"
+                                                                      ng-click="oxconcent_minus()"></span></button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-warning" ng-click="oxconcent_plus()"><span
+                                        class="glyphicon glyphicon-plus"></span></button>
+                            </p>
+
+                            <uib-progressbar animate="false" value="oxconcent" type="warning"><b>{{oxconcent}}%</b>
+                            </uib-progressbar>
+
+
+                            <p>Illumination: &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-danger" ng-click="illu_minus()"><span
+                                        class="glyphicon glyphicon-minus"></span></button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-danger"><span class="glyphicon glyphicon-plus"
+                                                                     ng-click="illu_plus()"></span></button>
+                            </p>
+
+                            <uib-progressbar animate="false" value="illumination" type="danger"><b>{{illumination*20}}
+                                lx</b></uib-progressbar>
+
 
                         </div><!--/showback -->
                         <br>
@@ -126,47 +164,229 @@
                         <br></br>
                         <!--BASIC PROGREE BAR -->
                         <div id="progress-block" class="showback">
-                            <p>Sensor 1:&nbsp;  &nbsp;  &nbsp;<button class="btn btn-success"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button> </p>
+                            <p>Sensor 1:&nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-success"><span class="glyphicon glyphicon-minus"></span></button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+                            </p>
                             <div class="progress">
 
                                 <uib-progressbar max="max" value="dynamic"></uib-progressbar>
-                                
+
                             </div>
-                            <p >Sensor 2:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></button></p> 
+                            <p>Sensor 2: &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-info"><span class="glyphicon glyphicon-minus"></span></button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></button>
+                            </p>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
                                      aria-valuemin="0" aria-valuemax="100" style="width: 20%">
                                 </div>
                             </div>
 
-                            <p>Sensor 3:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span></button></p>
+                            <p>Sensor 3: &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-warning"><span class="glyphicon glyphicon-minus"></span></button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span></button>
+                            </p>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 60%">
                                 </div>
                             </div>
-                            
-                            <p >Watering:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span></button></p>
+
+                            <p>Watering: &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span></button>
+                            </p>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 80%">
                                 </div>
                             </div>
 
                         </div><!--/showback -->
-                        
+
                     </section>
-                    
+
                 </section><!-- /MAIN CONTENT -->
                 <!--main content end-->
 
 
             </section>
         </div>
-    </div>
+        <div ng-show="isLog">
 
+            <section class="wrapper">
+
+                <!-- SIMPLE TO DO LIST -->
+                <div class="row mt">
+                    <div class="col-md-12">
+                        <div class="white-panel pn">
+                            <div class="panel-heading">
+                                <div class="pull-left todo-list-title"><h5><i class="fa fa-tasks"></i>Todo List</h5>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="custom-check goleft mt">
+                                <table id="todo" class="table table-hover custom-check">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="check"><input type="checkbox" class="checked"></span>
+                                            <a href="#">Irrigate apple farm.</a></span>
+                                            <button class="close" aria-hidden="true" data-dismiss="alert"
+                                                    type="button">×
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="check"><input type="checkbox" class="checked"></span>
+                                            <a href="#">Prepare for the typhoon coming in one week.</a></span>
+                                            <button class="close" aria-hidden="true" data-dismiss="alert"
+                                                    type="button">×
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="check"><input type="checkbox" class="checked"></span>
+                                            <a href="#">Do experiment to find a better combination of temperature and
+                                                illumination in greenhouse 1.</a></span>
+                                            <button class="close" aria-hidden="true" data-dismiss="alert"
+                                                    type="button">×
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="check"><input type="checkbox" class="checked"></span>
+                                            <a href="#">Prepare for the harvest in farm 2, do promotion.</a></span>
+                                            <button class="close" aria-hidden="true" data-dismiss="alert"
+                                                    type="button">×
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- /table-responsive -->
+                        </div><!--/ White-panel -->
+                    </div>
+                    <! --/col-md-12 -->
+                </div>
+
+                <div class="row mt">
+                    <div class="col-md-12">
+                        <div class="white-panel pn">
+                            <div class="panel-heading">
+                                <div class="pull-left todo-list-title"><h5><i class="fa fa-tasks"></i>Activity Log</h5>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="custom-check goleft mt">
+                                <table id="todo" class="table table-hover custom-check">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="#">Oct 22, 23:58 - Farm 2 irrigated.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#">Oct 22, 22:34 - Farm 1 regular check.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#">Oct 22, 11:01 - Oxygen concentration manually changed in
+                                                greenhouse 3, from 18% to 22%.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#">Oct 21, 17:34 - Farm 3 regular check.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#" class="systemlog">Oct 20, 23:58 - Farm 2 water pumped launched,
+                                                irrigated automatically.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#">Oct 20, 19:36 - Stuff checked and fixed situation in Greenhouse
+                                                1.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#" class="systemlog">Oct 20, 19:34 - Greenhouse 1 humidifier
+                                                automatically launched.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#" class="warninglog">Oct 20, 19:24 - WARNING - Humidity in
+                                                Greenhouse 1 is EXTREMELY LOW!</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#" class="warninglog">Oct 20, 19:18 - WARNING - Humidity in
+                                                Greenhouse 1 is lower than normal level!</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#" class="systemlog">Oct 20, 07:48 - Illumination in greenhouse 2
+                                                automatically changed according to the program input by user.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#">Oct 19, 18:01 - Farm 1 irrigated.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#" class="warninglog">Oct 19, 12:06 - WARNING - Typhoon signal just
+                                                issued by related department.</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="#">Oct 18, 18:59 - Staff #2031 just set a program to change
+                                                illumination in greenhouse 2.</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- /table-responsive -->
+                        </div><!--/ White-panel -->
+                    </div>
+                    <! --/col-md-12 -->
+                </div>
+                <! -- row -->
+            </section>
+            <! --/wrapper -->
+        </div>
+    </div>
+    <p id="fuck" style="visibility: hidden;"></p>
 
 </div>
 <script>
+
     var formData = window.location.search;
+    var hello = String(formData);
+    console.log("hello:", hello);
+
+    document.getElementById("fuck").innerHTML = hello;
+
+
     var name = String(formData).match(/fname=.*?&/);
     name = name.substr(6);
     name = name.substr(0, name.length - 1);
@@ -181,6 +401,7 @@
         loca = loca.replace("%20", " ");
     }
     document.getElementById("farmid").innerText = name + ", " + loca;
+
 </script>
 
 </body>

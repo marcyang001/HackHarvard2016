@@ -64,10 +64,11 @@
 
         <div class="col-md-9" ng-controller="dataController">
             <div ng-repeat="image in images">
+                <br><br>
                 <div class="farm">
                     <figure class="farm-figure">
                         <a href="analyses.html?fid={{$index}}&fname={{image.name}}&fl={{image.location}}/" class="portfolio-link" data-toggle="modal">
-                            <img class='farm-img' src="{{image.photo}}"/>
+                            <img class='farm-img' ng-src="{{image.photo}}">
                         </a>
                     </figure>
                     <div class="farm-caption">
