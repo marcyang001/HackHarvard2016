@@ -6,6 +6,7 @@ from datetime import date
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
+import os
 
 session = requests.Session()
 
@@ -79,6 +80,13 @@ weatherInfo = {
 jsonWeathers = json.dumps(weatherInfo)
 # print jsonWeathers
 
+path = './html/main/data/'
+if not os.path.exists(path):
+    os.makedirs(path)
+
+with open(path + 'temp.json', 'w') as f:
+    json.dump(weatherInfo, f)
+
 class WeatherHandler(BaseHTTPRequestHandler):
     def _set_headers(self):
         self.send_response(200)
@@ -109,5 +117,5 @@ def run(serverIP, port):
 def main():
     run(sys.argv[1], int(sys.argv[2]))
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

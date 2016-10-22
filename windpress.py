@@ -6,6 +6,7 @@ from datetime import date
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import json
 import sys
+import os
 
 def mapMonth(charMon):
     charMon = charMon.lower();
@@ -85,6 +86,14 @@ for d in data:
 
 jsonPreAndWindData = json.dumps(pressuresAndWindspeeds)
 
+path = './html/main/data/'
+if not os.path.exists(path):
+    os.makedirs(path)
+
+with open(path + 'windpress.json', 'w') as f:
+    json.dump(pressuresAndWindspeeds, f)
+
+
 # print jsonPreAndWindData
 
 class Handler(BaseHTTPRequestHandler):
@@ -119,5 +128,5 @@ def run(serverIP, port):
 def main():
     run(sys.argv[1], int(sys.argv[2]))
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
