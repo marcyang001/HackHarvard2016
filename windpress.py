@@ -95,7 +95,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self._set_headers()
-        self.wfile.write("<html><body>" + jsonPreAndWindData + "</body></html>")
+        self.wfile.write(jsonPreAndWindData)
 
     def do_HEAD(self):
         self._set_headers()

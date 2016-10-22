@@ -1,11 +1,6 @@
 google.charts.load('current', {'packages':['corechart']});
 
-var windData = [
-    ['10/23',  1000],
-    ['10/24',  1170],
-    ['10/25',  660],
-    ['10/26',  1030]
-];
+var windData = [];
 function drawWindChart(fetchedData) {
     var data = [
         ['Date', 'Wind Force Scale'],

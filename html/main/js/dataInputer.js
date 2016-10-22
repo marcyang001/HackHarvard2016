@@ -3,6 +3,7 @@
  */
 
 
+/*
 tempData.push(
     ['10/24', 8, 8, 12, 12, '8 - 12 Sunny'],
     ['10/25', 5, 5, 11, 11, '5 - 11 Cloudy'],
@@ -22,3 +23,5 @@ monthlyRainData.push(['1', 40]);
 monthlyRainData.push(['2', 24]);
 
 windData.push(['11/01', 3]);
+
+*/
