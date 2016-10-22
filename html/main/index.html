@@ -17,7 +17,8 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -32,223 +33,143 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Farmer </a>
+<!-- Page Content -->
+<div class="container">
+    <div class="nav">
+        <p class="logo">AG FUTURE</p>
+    </div>
+    <div class="nav-empty">
+
+    </div>
+    <div class="row">
+
+        <!--left side grouping-->
+        <div class="col-md-3">
+            <p class="lead">Facilities / Fields</p>
+            <div class="list-group">
+                <a href="#" class="list-group-item">Indoor/ Green Houses</a>
+                <a href="#" class="list-group-item">Outdoor Fields</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+            <button href="#form_modal" type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal">Add
+            </button>
         </div>
-        <!-- /.container -->
-    </nav>
 
-    <!-- Page Content -->
-    <div class="container">
+        <div class="col-md-9" ng-controller="dataController">
+            <div ng-repeat="image in images">
+                <div class="farm">
+                    <figure class="farm-figure">
+                        <a href="analyses.html?fid={{$index}}&fname={{image.name}}&fl={{image.location}}/" class="portfolio-link" data-toggle="modal">
+                            <img class='farm-img' src="http://nxworld.net/codepen/css-image-hover-effects/pic01.jpg"/>
+                        </a>
+                    </figure>
+                    <div class="farm-caption">
+                        <p class="farm-text farm-title">{{image.name}}</p>
+                        <br>
+                        <p class="farm-text">Location: {{image.location}}</p>
+                        <p class="farm-text">Products: </p>
+                        <ul class="farm-productlist" ng-repeat="name in image.products">
+                            <li class="farm-text">{{name}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
+
+            <!--form_modal -->
+            <div class="portfolio-modal modal fade" id="form_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2">
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Email address</label>
+                                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                                   placeholder="Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Password</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                                   placeholder="Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">File input</label>
+                                            <input type="file" id="exampleInputFile">
+                                            <p class="help-block">Example block-level help text here.</p>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Check me out
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </form>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                            class="fa fa-times"></i> Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- /.container -->
+
+<div class="container">
+
+    <!-- Footer -->
+    <footer>
         <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">Facilities/ Fields</p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">Indoor/ Green Houses</a>
-                    <a href="#" class="list-group-item">Outdoor Fields</a>
-                     
-                </div>
-                <button href="#form_modal" type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal">Add</button>
+            <div class="col-lg-12">
+                <p>Copyright &copy; AgFuture 2016</p>
             </div>
-
-            <div class="col-md-9" ng-controller="dataController">
-                <div ng-repeat="image in images">
-                    <div class="row">
-
-                        <div class="col-sm-4 col-lg-4 col-md-4">
-                            <div class="thumbnail" >
-                                <div class="hover11 column">
-                                    <div>
-                                        <figure>
-                                            <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                                                <div class="caption">
-                                                    <div class="caption-content">
-                                                        <i class="fa fa-search-plus fa-3x"></i>
-                                                    </div>
-                                                </div>
-                                                <img src="http://nxworld.net/codepen/css-image-hover-effects/pic01.jpg" />
-                                            </a>
-
-
-                                        </figure>
-                                        <div class="caption">
-                                            
-                                            <h4>{{image.name}}</h4>
-                                            <p>Location: {{image.location}}</p>
-                                            <p>Products: </p>
-                                                <ul ng-repeat="name in image.products">
-                                                    <li>{{name}}</li>
-                                                </ul>
-                                        </div>
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    
-                    </div>
-
-                
-
-                </div>
-
-                <div ng-repeat="image in images">
-
-                    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-content">
-                            <div class="close-modal" data-dismiss="modal">
-                                <div class="lr">
-                                    <div class="rl">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-8 col-lg-offset-2">
-                                        <div class="modal-body">
-                                            <h2>Data Analysis for {{image.name}}</h2>
-                                            <hr class="star-primary">
-                                            <img src="http://nxworld.net/codepen/css-image-hover-effects/pic01.jpg" />
-                                            <ul>
-                                                <li>Technologies:
-                                                    <strong>HTML5, CSS, Javascript, Nodejs
-                                                    </strong>
-                                                </li>
-                                                <li>URL:
-                                                    <strong>Click Here</strong>
-                                                </li>
-                                                <li>Area:
-                                                    <strong>Web development
-                                                    </strong>
-                                                </li>
-                                            </ul>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--form_modal --> 
-                <div class="portfolio-modal modal fade" id="form_modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-content">
-                            <div class="close-modal" data-dismiss="modal">
-                                <div class="lr">
-                                    <div class="rl">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-8 col-lg-offset-2">
-                                        <div class="modal-body">
-                                            <form>
-                                              <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                              </div>
-                                              <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                              </div>
-                                              <div class="form-group">
-                                                <label for="exampleInputFile">File input</label>
-                                                <input type="file" id="exampleInputFile">
-                                                <p class="help-block">Example block-level help text here.</p>
-                                              </div>
-                                              <div class="checkbox">
-                                                <label>
-                                                  <input type="checkbox"> Check me out
-                                                </label>
-                                              </div>
-                                              <button type="submit" class="btn btn-default">Submit</button>
-                                            </form>
-                                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
-
         </div>
+    </footer>
 
-    </div>
+</div>
+<!-- /.container -->
 
 
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
 
-    <!-- /.container -->
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
 
-    <div class="container">
+<!-- Plugin JavaScript -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpAnimatedHeader.js"></script>
 
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
+<!-- Contact Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
 
-    </div>
-    <!-- /.container -->
-
-    
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="js/classie.js"></script>
-    <script src="js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/freelancer.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="js/freelancer.js"></script>
 
 </body>
 

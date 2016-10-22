@@ -1,14 +1,14 @@
 google.charts.load('current', {'packages':['corechart']});
 
-var windData = [
+var dailyRainData = [
     ['10/23',  1000],
     ['10/24',  1170],
     ['10/25',  660],
     ['10/26',  1030]
 ];
-function drawChart(fetchedData) {
+function drawDailyRainChart(fetchedData) {
     var data = [
-        ['Date', 'Wind Force Scale'],
+        ['Date', 'Precipitation Forecast'],
     ];
     for (d in fetchedData) {
         data.push(fetchedData[d]);
@@ -17,11 +17,11 @@ function drawChart(fetchedData) {
 
     var options = {
         legend: 'none',
-        title: 'Wind Force Scale, in kts',
+        title: 'Daily precipitaion forecast for three months, in IN',
         vAxis: {minValue: 0},
-        colors:['#028700']
+        colors:['#4fabf2']
     };
 
-    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+    var chart = new google.visualization.AreaChart(document.getElementById('daily-rain'));
     chart.draw(data, options);
 }

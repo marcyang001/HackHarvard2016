@@ -7,13 +7,7 @@ angular.module('agFuture', [])
 						  "name": "Green House 1",
 						  "location": "Boston",
 						  "products": ["Apples", "Pears", "oranges"]
-					},
-
-					{
-						"name": "Green House 2",
-						"location": "Boston",
-						"products": ["Apples", "Pears", "oranges"]
-					}]
+						}]
 
 /*
 			$http.jsonp(url)

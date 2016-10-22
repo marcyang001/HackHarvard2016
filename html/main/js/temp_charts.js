@@ -1,9 +1,9 @@
 google.charts.load('current', {'packages':['corechart']});
 
 // temperature data
-var weatherData = [];
+var tempData = [];
 
-function drawChart(dataRows) {
+function drawTempChart(dataRows) {
 
 
     var dataTable = new google.visualization.DataTable({
@@ -30,6 +30,6 @@ function drawChart(dataRows) {
 
     };
 
-    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+    var chart = new google.visualization.CandlestickChart(document.getElementById('temp'));
     chart.draw(dataTable, options);
 }
