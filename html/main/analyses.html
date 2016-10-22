@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AgFuture: Analysis</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="./js/ngapp.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="./js/daily_rain_charts.js"></script>
+    <script type="text/javascript" src="./js/monthly_rain_charts.js"></script>
+    <script type="text/javascript" src="./js/temp_charts.js"></script>
+    <script type="text/javascript" src="./js/wind_charts.js"></script>
+    <script type="text/javascript" src="./js/dataInputer.js"></script>
+    <script type="text/javascript">
+        google.charts.setOnLoadCallback(function () {
+            drawDailyRainChart(dailyRainData);
+        });
+        google.charts.setOnLoadCallback(function () {
+            drawTempChart(tempData);
+        });
+        google.charts.setOnLoadCallback(function () {
+            drawMonthlyRainChart(monthlyRainData);
+        });
+        google.charts.setOnLoadCallback(function () {
+            drawWindChart(windData);
+        });
+    </script>
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="./css/analysis.css" rel="stylesheet">
+</head>
+<body ng-app="farmApp" ng-controller="ctrl">
+<!--left side grouping-->
+<div class="container">
+    <div class="nav">
+        <p class="logo">AG FUTURE</p>
+    </div>
+    <div class="nav-empty"></div>
+
+    <div class="col-md-3">
+        <p class="lead">Boost your Agriculture</p>
+        <div class="list-group">
+            <a href="#" class="list-group-item" ng-model="showAnalyses" ng-click="showAnalyses()">Analyses</a>
+            <a href="#" class="list-group-item" ng-model="showCtrl" ng-click="showCtrl()">Control Panel</a>
+            <a href="#" class="list-group-item" ng-model="showLog" ng-click="showLog()">Activity Log / Todo</a>
+        </div>
+        <form action="./index.html">
+            <input type="submit" value="Back" class="btn btn-success btn-lg btn-block" data-toggle="modal"/>
+        </form>
+    </div>
+
+
+    <div class="col-md-9">
+        <p class="farm-id" id="farmid">Farm No.1 - Apples</p>
+        <hr>
+        <div ng-show="isAnalyses">
+            <div class="anayChart" id="temp"></div>
+            <p>As the graph shows, in the following few months we may have a highest temperature of ?? and lowest of
+                ???. Based on the machine learning algorithm, this is good/bad for your products in this farm. Hence, we
+                sugguest that you, the manager of this farm make sure that all crops are hydrated and may irrigate extra
+                once per day.</p>
+            <div class="anayChart" id="daily-rain"></div>
+            <div class="anayChart" id="monthly-rain"></div>
+            <div class="anayChart" id="wind"></div>
+        </div>
+    </div>
+
+
+</div>
+<script>
+    var formData = window.location.search;
+    var name = String(formData).match(/fname=.*?&/);
+    name = name.substr(6);
+    name = name.substr(0, name.length - 1);
+    while (name.match("%20")) {
+        name = name.replace("%20", " ");
+    }
+
+    var loca = String(formData).match(/fl=.*/)[0];
+    loca = loca.substr(3);
+    loca = loca.substr(0, loca.length - 1);
+    while (loca.match("%20")) {
+        loca = loca.replace("%20", " ");
+    }
+    document.getElementById("farmid").innerText = name + ", " + loca;
+</script>
+
+</body>
+</html>
