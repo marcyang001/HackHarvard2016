@@ -1,0 +1,23 @@
+{
+  "name": "agtech",
+  "version": "1.0.0",
+  "description": "webapp for HackHarvard",
+  "main": "app.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "npm test"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "body-parser": "^1.9.2"
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+  "author": "Marc and Eric",
+  "license": "ISC"
+}
