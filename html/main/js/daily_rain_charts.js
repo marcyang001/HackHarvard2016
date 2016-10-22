@@ -1,10 +1,6 @@
 google.charts.load('current', {'packages':['corechart']});
 
 var dailyRainData = [
-    ['10/23',  1000],
-    ['10/24',  1170],
-    ['10/25',  660],
-    ['10/26',  1030]
 ];
 function drawDailyRainChart(fetchedData) {
     var data = [

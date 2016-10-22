@@ -1,10 +1,13 @@
 google.charts.load('current', {'packages': ['corechart']});
 
 // rain data
-var monthlyRainData = [
-    ["10", 8.94],
+/*
+ ["10", 8.94],
     ["11", 10.49],
     ["12", 19.30]
+*/
+var monthlyRainData = [
+   
 ];
 
 google.charts.load("current", {packages: ["corechart"]});
