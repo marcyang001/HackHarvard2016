@@ -15,8 +15,8 @@ farmApp.controller('ctrl', function ($scope, $http) {
     }
     $scope.showCtrl = function () {
         $scope.isAnalyses = false;
-        $scope.isCtrl = false;
-        $scope.isLog = true;
+        $scope.isCtrl = true;
+        $scope.isLog = false;
     }
     $scope.showLog = function () {
         $scope.isAnalyses = false;

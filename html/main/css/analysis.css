@@ -36,3 +36,19 @@ body {
     height: 500px;
     margin: auto;
 }
+
+.left-label {
+    display: table-cell;
+    padding-left: 40px;
+    float: left;
+    align-content: center;
+    vertical-align: middle;
+    position: relative;
+    width: 350px;
+}
+.progress-block {
+    width: 50%;
+}
+.progress {
+    width: 50%;
+}
