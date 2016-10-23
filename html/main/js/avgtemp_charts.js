@@ -2,7 +2,7 @@
  * Created by Ericp on 2016-10-22.
  */
 
-var avgTempData = [['2004', 1000, 400, 200, 200]];
+var avgTempData = [];
 
 function drawAvgTempChart(fetchedData) {
     var data = [
@@ -14,9 +14,10 @@ function drawAvgTempChart(fetchedData) {
     data = google.visualization.arrayToDataTable(data);
 
     var options = {
-        title: 'Company Performance',
+        title: 'Average (based on past 30 years) High and Low Temperature in next three months',
         curveType: 'function',
-        legend: {position: 'bottom'}
+        legend: {position: 'bottom'},
+        colors: ['#ff2714', '#ff8914', '#1462ff', '#19bdff']
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('avgtemp'));
