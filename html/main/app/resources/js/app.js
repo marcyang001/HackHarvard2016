@@ -4,6 +4,7 @@ angular.module('agFuture', [])
 
         	$scope.images =
 			        [{
+			        	  "photo": "http://nxworld.net/codepen/css-image-hover-effects/pic01.jpg",
 						  "name": "Green House 1",
 						  "location": "Boston",
 						  "products": ["Apples", "Pears", "oranges"]

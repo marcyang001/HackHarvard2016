@@ -96,37 +96,62 @@
 
                 <!--main content start-->
                 <section id="main-content">
-                    <section class="wrapper">
+                    <section class="wrapper" ng-controller="ctrl2">
                         <!--BASIC PROGREE BAR -->
                         <div id="progress-block" class="showback">
-                            <p>Temperature:&nbsp;  &nbsp;  &nbsp;<button class="btn btn-success"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button> </p>
+                            <p>Temperature:&nbsp;  &nbsp;  &nbsp;<button class="btn btn-success" ng-click="tempminus()"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-success" ng-click="tempadd()"><span class="glyphicon glyphicon-plus"></span></button> </p>
+                            
+                            <uib-progressbar animate="false" value="temperature" type="success"><b>{{temperature}}&#8451;</b></uib-progressbar>
+                            
+                            <p >Humidity:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-minus" ng-click="hum_minus()"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info" ng-click="hum_plus()"><span class="glyphicon glyphicon-plus"></span></button></p> 
+                            
+                            <uib-progressbar animate="false" value="humidity" type="info"><b>{{humidity}}%</b></uib-progressbar>
+                            
+
+                            <p>Oxygen Concentration:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-minus" ng-click="oxconcent_minus()"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning" ng-click="oxconcent_plus()"><span class="glyphicon glyphicon-plus"></span></button></p>
+                            
+                            <uib-progressbar animate="false" value="oxconcent" type="warning"><b>{{oxconcent}}%</b></uib-progressbar>
+                            
+                            
+                            <p >Illumination:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger" ng-click="illu_minus()"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-plus" ng-click="illu_plus()"></span></button></p>
+                            
+                            <uib-progressbar animate="false" value="illumination" type="danger"><b>{{illumination*20}} lx</b></uib-progressbar>
+                            
+
+                        </div><!--/showback -->
+                        <br>
+
+                        <hr></hr>
+                        <h4>Outdoor Control</h4>
+                        <br></br>
+                        <!--BASIC PROGREE BAR -->
+                        <div id="progress-block" class="showback">
+                            <p>Sensor 1:&nbsp;  &nbsp;  &nbsp;<button class="btn btn-success"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button> </p>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                </div>
+
+                                <uib-progressbar max="max" value="dynamic"></uib-progressbar>
+                                
                             </div>
-                            <p >Humidity:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></button></p> 
+                            <p >Sensor 2:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></button></p> 
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
                                      aria-valuemin="0" aria-valuemax="100" style="width: 20%">
                                 </div>
                             </div>
 
-                            <p>Oxygen Concentration:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span></button></p>
+                            <p>Sensor 3:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span></button></p>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
                                 </div>
                             </div>
                             
-                            <p >Illumination:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span></button></p>
+                            <p >Watering:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span></button></p>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
                                 </div>
                             </div>
 
                         </div><!--/showback -->
-                        <br>
-
                         
                     </section>
                     
@@ -135,39 +160,6 @@
 
 
             </section>
-
-
-            <hr>
-            <h4>Outdoor Control</h4>
-            <br></br>
-             <!--BASIC PROGREE BAR -->
-                        <div id="progress-block" class="showback">
-                            <p>Temperature:&nbsp;  &nbsp;  &nbsp;<button class="btn btn-success"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button> </p>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                </div>
-                            </div>
-                            <p >Humidity:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-info"><span class="glyphicon glyphicon-plus"></span></button></p> 
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                </div>
-                            </div>
-
-                            <p>Oxygen Concentration:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span></button></p>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                </div>
-                            </div>
-                            
-                            <p >Illumination:  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>  &nbsp;  &nbsp;  &nbsp;<button class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span></button></p>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                </div>
-                            </div>
-
-                        </div><!--/showback -->
         </div>
     </div>
 
