@@ -37,6 +37,7 @@
     <link href="./css/bootstrap.css" rel="stylesheet">
 
     <link href="./css/analysis.css" rel="stylesheet">
+
 </head>
 <body ng-app="farmApp" ng-controller="ctrl">
 <!--left side grouping-->
@@ -51,7 +52,7 @@
         <div class="list-group">
             <a href="#" class="list-group-item" ng-model="showAnalyses" ng-click="showAnalyses()">Analyses</a>
             <a href="#" class="list-group-item" ng-model="showCtrl" ng-click="showCtrl()">Control Panel</a>
-            <a href="#" class="list-group-item" ng-model="showLog" ng-click="showLog()">Activity Log / Todo</a>
+            <a href="#" class="list-group-item" ng-model="showLog" ng-click="showLog()">Todo / Activity Log</a>
         </div>
         <form action="./index.html">
             <input type="submit" value="Back" class="btn btn-success btn-lg btn-block" data-toggle="modal"/>
@@ -64,24 +65,33 @@
         <hr>
         <div ng-show="isAnalyses">
             <div class="anayChart" id="temp"></div>
-            <p>As the graph shows, in the following few months we may have a highest temperature of ?? and lowest of
-                ???. Based on the machine learning algorithm, this is good/bad for your products in this farm. Also mind
-                the high temperature, we suggest that you, the manager of this farm, <b>make sure that all plants are
-                    hydrated and may irrigate extra once per week</b>.</p>
+            <p>As the graph shows, in the following few months we may have a highest temperature of {{highestTemp}} and
+                lowest of {{lowestTemp}} Fahrenheit. Based on the machine learning algorithm, this is good/bad for your
+                products in this farm. Also mind the high temperature on {{maxTempDate}}, we suggest that you, the
+                manager of this farm,
+                <b>make sure that all plants are hydrated and may irrigate extra once per week during warm period</b>.
+            </p>
             <div class="anayChart" id="avgtemp"></div>
-            <p></p>
+            <p>This is an alternative temperature line chart in order to show you the temperature and weather in next 3
+                months from a different angle. We get the weather data from last 30 years and retrieve the average high
+                and low temperatures for each day in the next 90 days. <b>We suggest you also refer to this graph for a
+                    better understanding of the weather in the future</b>, since it's representative proved by
+                scientists.</p>
 
             <div class="anayChart" id="daily-rain"></div>
             <p>Recently, we have average rainfall, and it seems that everything goes well. It will be raining heavily
-                someday around [DATE]. And it seems that the precipitation will drop sharply after [DATE].</p>
+                someday around {{maxRainDate}}. And it seems that {{percentageOfNoRain * 100 | number:2}}% of days in
+                the next
+                three months will have no rainfall.</p>
             <div class="anayChart" id="monthly-rain"></div>
             <p>The monthly gives you a more overall perception about precipitation. Everything goes right!</p>
             <div class="anayChart" id="wind"></div>
-            <p>Lucky you! You get mild wind in the following ten days and no worries about your products.</p>
+            <p>Lucky you! You get mild wind in the following ten days, with a average of {{avgWindSpd | number:2}}kts,
+                so no worries about your products.</p>
             <hr>
             <h4>Advanced advice</h4>
             <p>Based on our huge database and machine learning algorithms, we believe that the growing season for this
-                farm will last for 118 ~ 127 more days, that is, your expected harvest period is from [DATE] to
+                farm will last for [INT] ~ [INT] more days, that is, your expected harvest period is from [DATE] to
                 [DATE].</p>
             <p>Also, the degree sweetness of your apples this year is expected to be [xxx], a little bit higher than
                 previous ones. The quantity of apples and quality per apple are expected as [x] and [y]
@@ -160,6 +170,153 @@
 
 
             </section>
+        </div>
+        <div ng-show="isLog">
+
+                <section class="wrapper">
+
+                    <!-- SIMPLE TO DO LIST -->
+                    <div class="row mt">
+                        <div class="col-md-12">
+                            <div class="white-panel pn">
+                                <div class="panel-heading">
+                                    <div class="pull-left todo-list-title"><h5><i class="fa fa-tasks"></i>Todo List</h5>
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="custom-check goleft mt">
+                                    <table id="todo" class="table table-hover custom-check">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <span class="check"><input type="checkbox" class="checked"></span>
+                                                <a href="#">Irrigate apple farm.</a></span>
+                                                <button class="close" aria-hidden="true" data-dismiss="alert"
+                                                        type="button">×
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="check"><input type="checkbox" class="checked"></span>
+                                                <a href="#">Prepare for the typhoon coming in one week.</a></span>
+                                                <button class="close" aria-hidden="true" data-dismiss="alert"
+                                                        type="button">×
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="check"><input type="checkbox" class="checked"></span>
+                                                <a href="#">Do experiment to find a better combination of temperature and illumination in greenhouse 1.</a></span>
+                                                <button class="close" aria-hidden="true" data-dismiss="alert"
+                                                        type="button">×
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="check"><input type="checkbox" class="checked"></span>
+                                                <a href="#">Prepare for the harvest in farm 2, do promotion.</a></span>
+                                                <button class="close" aria-hidden="true" data-dismiss="alert"
+                                                        type="button">×
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div><!-- /table-responsive -->
+                            </div><!--/ White-panel -->
+                        </div>
+                        <! --/col-md-12 -->
+                    </div>
+
+                    <div class="row mt">
+                        <div class="col-md-12">
+                            <div class="white-panel pn">
+                                <div class="panel-heading">
+                                    <div class="pull-left todo-list-title"><h5><i class="fa fa-tasks"></i>Activity Log</h5>
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="custom-check goleft mt">
+                                    <table id="todo" class="table table-hover custom-check">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="#">Oct 22, 23:58 - Farm 2 irrigated.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#">Oct 22, 22:34 - Farm 1 regular check.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#">Oct 22, 11:01 - Oxygen concentration manually changed in greenhouse 3, from 18% to 22%.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#">Oct 21, 17:34 - Farm 3 regular check.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#" class="systemlog">Oct 20, 23:58 - Farm 2 water pumped launched, irrigated automatically.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#">Oct 20, 19:36 - Stuff checked and fixed situation in Greenhouse 1.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#" class="systemlog">Oct 20, 19:34 - Greenhouse 1 humidifier automatically launched.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#" class="warninglog">Oct 20, 19:24 - WARNING - Humidity in Greenhouse 1 is EXTREMELY LOW!</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#" class="warninglog">Oct 20, 19:18 - WARNING - Humidity in Greenhouse 1 is lower than normal level!</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#" class="systemlog">Oct 20, 07:48 - Illumination in greenhouse 2 automatically changed according to the program input by user.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#">Oct 19, 18:01 - Farm 1 irrigated.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#" class="warninglog">Oct 19, 12:06 - WARNING - Typhoon signal just issued by related department.</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#">Oct 18, 18:59 - Staff #2031 just set a program to change illumination in greenhouse 2.</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div><!-- /table-responsive -->
+                            </div><!--/ White-panel -->
+                        </div>
+                        <! --/col-md-12 -->
+                    </div>
+                    <! -- row -->
+                </section>
+                <! --/wrapper -->
         </div>
     </div>
 

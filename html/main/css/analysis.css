@@ -52,3 +52,19 @@ body {
 .progress {
     width: 50%;
 }
+
+#todo {
+    width: 95%;
+    margin: auto;
+}
+
+.todo-list-title {
+    padding-left: 12px;
+}
+
+.systemlog {
+    color: #a1a1a1;
+}
+.warninglog {
+    color: #eb2b2f;
+}
