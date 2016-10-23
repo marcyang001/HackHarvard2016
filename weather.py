@@ -8,9 +8,16 @@ import json
 import sys
 import os
 
-session = requests.Session()
 
-print 'getting'
+urls = [
+    'http://www.accuweather.com/en/us/boston-ma/02108/november-weather/348735?monyr=',
+    'http://www.accuweather.com/en/ca/montreal/h3a/october-weather/56186?monyr=',
+    'http://www.accuweather.com/en/us/orlando-fl/32801/october-weather/328169?monyr='
+]
+
+selectedurl = urls[int(sys.argv[1])]
+
+session = requests.Session()
 
 currentYr = date.today().year
 currentMon = date.today().month
@@ -25,7 +32,7 @@ for i in range(0, 4):
     if (currentMon + i > 12):
         yr += 1
     monyr = mon.__str__() + '/' + '1' + '/' + yr.__str__()
-    url = 'http://www.accuweather.com/en/us/boston-ma/02108/november-weather/348735?monyr=' + monyr + '&view=table'
+    url = selectedurl + monyr + '&view=table'
     response = session.get(url)
     et = etree.HTML(response.content)
     monthlyData = et.xpath('//*[@id="panel-main"]/div[2]/div/div/table/tbody/tr[contains(@class, "lo")]')
@@ -77,6 +84,7 @@ weatherInfo = {
     "daily": weathers,
     "monthly": monthlyWeathers
 }
+
 jsonWeathers = json.dumps(weatherInfo)
 # print jsonWeathers
 
@@ -84,38 +92,6 @@ path = './html/main/data/'
 if not os.path.exists(path):
     os.makedirs(path)
 
-with open(path + 'temp.json', 'w') as f:
+with open(path + 'temp' + sys.argv[1] + '.json', 'w') as f:
     json.dump(weatherInfo, f)
 
-class WeatherHandler(BaseHTTPRequestHandler):
-    def _set_headers(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.end_headers()
-
-    def do_GET(self):
-        self._set_headers()
-        self.wfile.write(jsonWeathers)
-
-    def do_HEAD(self):
-        self._set_headers()
-
-    def do_POST(self):
-        # ?? Doesn't do anything with posted data
-        self._set_headers()
-        # self.wfile.write("<html><body><h1>POST!</h1></body></html>")
-
-def run(serverIP, port):
-    handler_class=WeatherHandler
-    server_class=HTTPServer
-    server_address = ('127.0.0.1', port)
-    httpd = server_class(server_address, handler_class)
-    sa = httpd.socket.getsockname()
-    print "Serving HTTP on", sa[0], "port", sa[1], "..."
-    httpd.serve_forever()
-
-def main():
-    run(sys.argv[1], int(sys.argv[2]))
-
-# if __name__ == '__main__':
-#     main()
